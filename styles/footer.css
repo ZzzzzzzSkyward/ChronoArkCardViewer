@@ -1,0 +1,32 @@
+#footer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-content: center;
+    width: 100%;
+    opacity: 0;
+    margin-left: 1%;
+    margin-bottom: 1%;
+}
+
+#footer:hover {
+    opacity: 0.8;
+}
+
+#footer a:hover {
+    background-color: transparent;
+    filter: brightness(0.9);
+    opacity: 0.9;
+}
+
+#footer a {
+    margin-left: 1%;
+    max-width: 32px;
+}
+
+#footer img,
+#footer svg {
+    max-width: 32px;
+}
