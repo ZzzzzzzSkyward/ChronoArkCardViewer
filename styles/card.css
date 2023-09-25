@@ -147,6 +147,8 @@ body,
     background-color: rgba(240, 248, 255, 0.39);
     width: 20%;
     backdrop-filter: blur(10px);
+    overflow:hidden;
+    overflow-y:auto;
 }
 
 
@@ -350,4 +352,7 @@ body,
     background: #aa2403b5;
     color: #f8c773;
     opacity: 0.5;
+}
+.info-comment{
+    background-color: #f0f8ff61;
 }

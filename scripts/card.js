@@ -263,16 +263,16 @@ function DisplayCard( thename ) {
 }
 
 function GetComment( info ) {
+    let comment=card_comment[info.KeyID];
+    if(comment)return (comment['评价等级']||"")+"<br/>"+comment['评价'];
     return "";
 }
 
 function GetDescription( info ) {
     let desc = info.Description || "";
     desc = desc
-        .replace( /\([&a]+\)/g, "" )
-        .replace( /\([&b]+\)/g, "" )
-        .replace( /&a/g, "?" )
-        .replace( /&b/g, "??" )
+        .replace( /\(&[a-z]+\)/g, "" )
+        .replace( /&[a-z]/g, "??" )
         .replace( /[\r\n]+/g, "<br/>" );
 
     //convert <color={color}>...</color> to <style> tag
