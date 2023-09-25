@@ -5,9 +5,10 @@ let root = zzz.create( "div", {
 let info = zzz.create( "div", {
     id: "cardinfo",
 }, {}, document.body );
-let name, attr, desc, comment;
+let name, attr, key, desc, comment;
 let UserMapping = {
     "LucyDraw": "Lucy",
+    "LucyDraw3": "Lucy",
     "LucyCurse": "Lucy",
     "LucyBoss": "Lucy",
 };
@@ -61,6 +62,9 @@ function CreateCard( definition ) {
         innerHTML: definition.UseAp && definition.UseAp.toFixed( 0 )
     }, {}, card_content );
     fee.innerHTML = definition.UseAp && definition.UseAp.toFixed( 0 );
+    let bg = zzz.create( "div", {
+        class: "card-fee-background"
+    }, {}, fee );
     return {
         card,
         image
@@ -243,39 +247,27 @@ function CreateInfo() {
     comment = zzz.create( "div", {
         class: "info-comment"
     }, {}, info );
+    key = zzz.create( "div", {
+        class: "info-key"
+    }, {}, info );
 }
 
 function DisplayCard( thename ) {
     let info = carddef[ thename ];
     if ( !info ) return;
     name.innerHTML = info.Name;
-    attr.innerHTML = info.KeyID; //temp
+    key.innerHTML = info.KeyID;
+    attr.innerHTML = GetAttribute( info );
     desc.innerHTML = GetDescription( info );
     comment.innerHTML = GetComment( info );
 }
 
 function GetComment( info ) {
-    let target = info.Target;
-    switch ( target ) {
-        case 'enemy':
-            target = "<span name='enemy'>对敌</span>";
-            break;
-        case 'ally':
-            target = "<span name='ally'>对友</span>";
-            break;
-        case 'deathally':
-            target = "<span name='deathally'>对不能战斗者</span>";
-            break;
-        default:
-            target = `<span name='${target}'></span>`;
-    }
-    let pattern = `${target}`;
-    return pattern;
+    return "";
 }
 
 function GetDescription( info ) {
     let desc = info.Description || "";
-
     desc = desc
         .replace( /\([&a]+\)/g, "" )
         .replace( /\([&b]+\)/g, "" )
@@ -290,6 +282,55 @@ function GetDescription( info ) {
             let colorValue = color.match( /color=([a-zA-Z#0-9]+)/ )[ 1 ];
             desc = desc.replace( color, `<span style="color: ${colorValue}">${color.match(/>(.*?)<\/color>/)[1]}</span>` );
         } );
+    }
+    //todo convert <sprite=...> to <img> tag
+    let sprites = desc.match( /<sprite=[a-zA-Z#0-9]+>/g );
+    if ( sprites ) {
+        sprites.forEach( sprite => {
+            let which = sprite.match( /<sprite=([a-zA-Z#0-9]+)>/ )[ 1 ];
+            desc = desc.replace( sprite, `<span>[符号${which}]</span>` )
+        } )
+    }
+    return desc;
+}
+
+function GetAttribute( info ) {
+    let turns = info.AutoDelete || 0;
+    let basic = info.Basic || false;
+    let fatal = info.Fatal || false;
+    let fee = info.UseAp;
+    let desc = "";
+    let target = info.Target;
+    switch ( target ) {
+        case 'enemy':
+            target = "<span name='enemy'>对敌</span>";
+            break;
+        case 'ally':
+            target = "<span name='ally'>对友</span>";
+            break;
+        case 'deathally':
+            target = "<span name='deathally'>对不能战斗者</span>";
+            break;
+        default:
+            target = `<span name='${target}'></span>`;
+    }
+    if ( turns > 0 ) {
+        desc = desc + "<br/>" + `<span class="card-turns">${turns}回合后弃牌</span>`;
+    }
+    if ( basic ) {
+        desc = desc + "<br/>" + `<span class="card-basic">基本</span>`;
+    }
+    if ( fatal ) {
+        desc = desc + "<br/>" + `<span class="card-fatal">致命</span>`;
+    }
+    if ( typeof ( fee ) == "number" && fee >= 0 ) {
+        desc = desc + "<br/>" + `<span class="card-cost">费用${fee}</span>`;
+    }
+    if ( target ) {
+        desc = desc + "<br/>" + target;
+    }
+    if ( desc.search( "<br" ) === 0 ) {
+        desc = desc.substring( 5 )
     }
     return desc;
 }

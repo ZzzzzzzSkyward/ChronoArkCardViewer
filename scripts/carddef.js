@@ -2974,7 +2974,7 @@ window.carddef = {
     "ViewBuff": false,
     "image": "LittleMaid.webp"
   },
-  "": {
+  "SE_S2_MainBoss_1_Lucy": {
     "AutoDelete": 0,
     "Basic": false,
     "Category": "LucySkill",
@@ -3138,7 +3138,6 @@ window.carddef = {
     "ViewBuff": true,
     "image": "Trisha_10.webp"
   },
-  "undefined": [ {} ],
   "ES_DefultAttack": {
     "NODOD": false,
     "NotCount": false,

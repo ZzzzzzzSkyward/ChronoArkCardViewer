@@ -1,6 +1,4 @@
 from zzz import *
-import json
-import os
 base_path = file.d(
     r'D:\Steam\steamapps\common\Chrono Ark\ChronoArk_Data\StreamingAssets')
 '''
@@ -27,6 +25,8 @@ translation_path = 'LangDataDB.csv'
 The stored full source data
 '''
 full_path = 'carddef.json'
+merged_path = "scripts/carddef_merge.js"
+merge_path = "scripts/carddef.js"
 
 
 def require():
@@ -67,11 +67,25 @@ def clean_cards(d):
 
 
 attr_to_remove = set(['Image_1', 'Image_2', 'Particle', 'SubParticle'])
+# ''=净化
+key_to_remove = set(['S_EnchantedRing',
+                     '',
+                     'S_Lucy_4',
+                     'S_Public_37_0',
+                     'S_TutoDoll_0',
+                     'S_TutoDoll_1',
+                     'S_Popcongirl_Lucy', 'S_Popcongirl_Lucy_0'])
 
 
 def complete_cards(d):
     for i in list(d.keys()):
+        if i in key_to_remove:
+            del d[i]
+            continue
         info = d[i]
+        if info['User'] == '':
+            del d[i]
+            continue
         info['KeyID'] = info['KeyID'] or i
         for k in list(info.keys()):
             if k in attr_to_remove:
@@ -112,12 +126,10 @@ def main():
     file.write(full_path, cards_string)
 
 
-merge_path = 'scripts/carddef.js'
-
-
 false = False
 true = True
 image = "image"
+null = None
 
 
 def merge_inner(target, source):
@@ -131,9 +143,18 @@ def merge_inner(target, source):
             else:
                 if target_v == source_v:
                     pass
+                elif source_v is None:
+                    pass
                 else:
+                    sv = source_v
+                    if sv == '':
+                        sv = "(empty string)"
+                    elif sv == "null":
+                        sv = "'null'"
+                    elif isinstance(sv, str):
+                        sv = f'"{sv}"'
                     print(
-                        f'{target["KeyID"]}[{k}]={target_v}, but source is {source_v}')
+                        f'{target["KeyID"]}[{k}]=\n{target_v}\nbut source is\n{sv}')
                     if input("Merge?(input anything)").strip() != "":
                         target[k] = source_v
         else:
@@ -154,12 +175,27 @@ def merge_into():
     pos = merge_string.find('{')
     merge_string = merge_string[pos:]
     cards = eval(merge_string)
+    clean_cards(cards)
+    complete_cards(cards)
     merge(cards, source_data)
+    cards_string = code.prettyjson(cards)
+    cards_string = "window.carddef=" + cards_string
+    file.write("scripts/carddef_merge.js", cards_string)
+
+
+def clean_merged():
+    merge_string = file.readstr(merged_path)
+    pos = merge_string.find('{')
+    merge_string = merge_string[pos:]
+    cards = eval(merge_string)
     clean_cards(cards)
     complete_cards(cards)
     cards_string = code.prettyjson(cards)
-    file.write("carddef.json", cards_string)
+    cards_string = "window.carddef=" + cards_string
+    file.write(merged_path, cards_string)
 
 
 if __name__ == '__main__':
-    merge_into()
+    # merge_into()
+    clean_merged()
+    pass

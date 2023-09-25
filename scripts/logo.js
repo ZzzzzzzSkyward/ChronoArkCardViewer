@@ -1,4 +1,4 @@
-let logo = "images/backgrounds/steam ark.jpg";
+let logo = "images/backgrounds/steam ark.webp";
 let waittime = 2;
 let killtime = 1;
 
