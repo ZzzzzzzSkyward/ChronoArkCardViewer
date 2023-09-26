@@ -256,12 +256,14 @@ let pivot = [ {
     disabled: true,
     name: "事件",
     content: "事件",
-    onclick: OnClickEvents
+    onhide: function () {},
+    onclick: function () {},
 }, {
     disabled: true,
     name: "建筑",
     content: "建筑",
-    onclick: OnClickConstrction
+    onhide: function () {},
+    onclick: function () {},
 }, {
     name: "音乐",
     content: "音乐",
@@ -288,14 +290,6 @@ function PushScreen( def, arg ) {
 function OnClickSkill( info, e ) {
     GenerateWhoseCards( info.name );
 }
-
-function OnClickItems( info, e ) {
-
-}
-
-function OnClickConstrction() {}
-
-function OnClickEvents() {}
 
 function OnClickPivot( e ) {
     let item = e.target;
