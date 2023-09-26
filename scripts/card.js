@@ -45,6 +45,7 @@ function CreateCard( definition ) {
     card.start = [ 0, 0 ];
     let image = zzz.create( "img", {
         class: "card-image no-select",
+        loading: "lazy",
         src: GetUrl( definition ),
         draggable: false,
         alt: ( definition.Name || "" ) + "(" + ( definition.KeyID || "" ) + ")"
@@ -252,19 +253,20 @@ function CreateInfo() {
     }, {}, info );
 }
 
-function DisplayCard( thename ) {
-    let info = carddef[ thename ];
+function DisplayCard( thename, def, cmt ) {
+    def = def || carddef;
+    let info = def[ thename ];
     if ( !info ) return;
     name.innerHTML = info.Name;
     key.innerHTML = info.KeyID;
     attr.innerHTML = GetAttribute( info );
     desc.innerHTML = GetDescription( info );
-    comment.innerHTML = GetComment( info );
+    comment.innerHTML = GetComment( info, cmt || card_comment );
 }
 
-function GetComment( info ) {
-    let comment=card_comment[info.KeyID];
-    if(comment)return (comment['评价等级']||"")+"<br/>"+comment['评价'];
+function GetComment( info, cmt ) {
+    let comment = cmt[ info.KeyID ];
+    if ( comment ) return ( comment[ '评价等级' ] || "" ) + "<br/>" + comment[ '评价' ];
     return "";
 }
 
@@ -314,6 +316,26 @@ function GetAttribute( info ) {
         default:
             target = `<span name='${target}'></span>`;
     }
+    let cls = info.Itemclass;
+    switch ( cls ) {
+        case 'Legendary':
+            cls = "<span name='Legendary'>传说</span>";
+            break;
+        case 'Unique':
+            cls = "<span name='Unique'>英雄</span>";
+            break;
+        case 'Rare':
+            cls = "<span name='Rare'>稀有</span>";
+            break;
+        case 'UnCommon':
+            cls = "<span name='UnCommon'>特殊</span>";
+            break;
+        case 'Common':
+            cls = "<span name='Common'>普通</span>";
+            break;
+        default:
+            cls = `<span name='${cls}'></span>`;
+    }
     if ( turns > 0 ) {
         desc = desc + "<br/>" + `<span class="card-turns">${turns}回合后弃牌</span>`;
     }
@@ -328,6 +350,9 @@ function GetAttribute( info ) {
     }
     if ( target ) {
         desc = desc + "<br/>" + target;
+    }
+    if ( cls ) {
+        desc = desc + "<br/>" + cls;
     }
     if ( desc.search( "<br" ) === 0 ) {
         desc = desc.substring( 5 )

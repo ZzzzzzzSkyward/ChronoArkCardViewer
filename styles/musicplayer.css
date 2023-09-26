@@ -78,7 +78,8 @@
     color: #b3dff5;
     --percent: 0%;
 }
-.musicplayer-bar{
+
+.musicplayer-bar {
     backdrop-filter: blur(10px);
 }
 

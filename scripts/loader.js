@@ -1,7 +1,9 @@
 let loaders = [
     ShowLogo,
     CreateBG, GenerateMenu, CreateInfo,
-    GenerateCards,
+    function () {
+        GenerateWhoseCards( "Lucy" );
+    },
     ListenForMouseDown
 ];
 let currentindex = 0;

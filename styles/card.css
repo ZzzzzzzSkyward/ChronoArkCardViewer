@@ -11,6 +11,16 @@
     padding-top: 10%;
 }
 
+#cardroot[name="relic"],
+#cardroot[name="consume"],
+#cardroot[name="scroll"],
+#cardroot[name="active"],
+#cardroot[name="potion"],
+#cardroot[name="equip"] {
+    grid-template-columns: repeat(auto-fill, 10vw);
+    grid-gap: 0.5vw 1vw;
+}
+
 body {
     cursor: url("../images/lucy_head.webp"), auto;
     margin: 0;
@@ -85,6 +95,30 @@ body,
     aspect-ratio: 440/280;
 }
 
+#cardroot[name='relic'] .card-content>.card-image {
+    aspect-ratio: 1;
+}
+
+#cardroot[name='consume'] .card-content>.card-image {
+    aspect-ratio: 1;
+}
+
+#cardroot[name='scroll'] .card-content>.card-image {
+    aspect-ratio: 1;
+}
+
+#cardroot[name='active'] .card-content>.card-image {
+    aspect-ratio: 1;
+}
+
+#cardroot[name='potion'] .card-content>.card-image {
+    aspect-ratio: 1;
+}
+
+#cardroot[name='equip'] .card-content>.card-image {
+    aspect-ratio: 1;
+}
+
 .card-content>.card-title {
     position: absolute;
     display: inline-block;
@@ -93,8 +127,10 @@ body,
     text-indent: 0.7em;
     bottom: 0;
     width: 100%;
-    background: linear-gradient(transparent 0%, black 40%, black 100%);
-    color: white;
+    --bcolor: black;
+    background: linear-gradient(transparent 0%, var(--bcolor) 40%, var(--bcolor) 100%);
+    --tcolor: white;
+    color: var(--tcolor);
     font-size: 0.8em;
     line-height: 2em;
 }
@@ -109,6 +145,33 @@ body,
     left: 0;
     bottom: 0;
 }
+
+.card-title.equip {
+    background: var(--bcolor);
+}
+
+.card-title[name='Legendary'] {
+    --bcolor: yellow;
+    --tcolor: black;
+}
+
+.card-title[name='Unique'] {
+    --bcolor: red;
+}
+
+.card-title[name='UnCommon'] {
+    --bcolor: green;
+}
+
+.card-title[name='Rare'] {
+    --bcolor: blue;
+}
+
+.card-title[name='Common'] {
+    --bcolor: white;
+    --tcolor: black;
+}
+
 
 .card-content>.card-fee {
     position: absolute;
@@ -147,8 +210,8 @@ body,
     background-color: rgba(240, 248, 255, 0.39);
     width: 20%;
     backdrop-filter: blur(10px);
-    overflow:hidden;
-    overflow-y:auto;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 
@@ -343,16 +406,19 @@ body,
 .card-key {
     opacity: 0.5;
 }
+
 .card-basic {
     background: #27e216b5;
     color: #000000;
     opacity: 0.5;
 }
+
 .card-fatal {
     background: #aa2403b5;
     color: #f8c773;
     opacity: 0.5;
 }
-.info-comment{
+
+.info-comment {
     background-color: #f0f8ff61;
 }

@@ -24,7 +24,20 @@ translation_path = 'LangDataDB.csv'
 '''
 The stored full source data
 '''
+# 技能
 full_path = 'carddef.json'
+# 遗物
+full_path = 'relicdef.json'
+# 消耗品
+full_path = 'consumedef.json'
+# 卷轴
+full_path = 'scrolldef.json'
+# 主动
+full_path = 'activedef.json'
+# 药水
+full_path = 'potiondef.json'
+# 装备
+full_path = 'equipdef.json'
 merged_path = "scripts/carddef_merge.js"
 merge_path = "scripts/carddef.js"
 
@@ -83,10 +96,15 @@ def complete_cards(d):
             del d[i]
             continue
         info = d[i]
-        if info['User'] == '':
+        if info.get('User') == '':
             del d[i]
             continue
-        info['KeyID'] = info['KeyID'] or i
+        if 'KeyID' in info:
+            info['KeyID'] = info['KeyID'] or i
+        else:
+            info['KeyID'] = i
+        if 'name' in info:
+            del info['name']
         for k in list(info.keys()):
             if k in attr_to_remove:
                 del info[k]
@@ -105,12 +123,25 @@ def main():
     cards = {}
     for i in data:
         info = data[i]
-        if 'Image_0' in info:
+        # 技能
+        # if 'Image_0' in info:
+        # 遗物
+        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Passive':
+        # 消耗品
+        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Consume':
+        # 卷轴
+        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Scroll':
+        # 主动
+        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Active':
+        # 药水
+        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Potions':
+        # 装备
+        if '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Equip':
             cards[i] = info
     # translate Name and Description
     for i in cards:
         info = cards[i]
-        Name = info['Name']
+        Name = info.get('Name') or info.get('name')
         Description = info['Description']
         translation_chs = get_trans(t, i, 'Name', Name)
         if translation_chs:
@@ -197,5 +228,6 @@ def clean_merged():
 
 if __name__ == '__main__':
     # merge_into()
-    clean_merged()
+    # clean_merged()
+    main()
     pass

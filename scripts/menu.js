@@ -177,38 +177,79 @@ let pivot = [ {
         },
     ]
 }, {
-    disabled: true,
     name: "道具",
     content: "道具",
     popup: [ {
             name: "equip",
             content: "装备",
-            onclick: OnClickItems
+            onhide: function () {
+                root.setAttribute( "name", "" );
+                RemoveCards();
+            },
+            onclick: function () {
+                root.setAttribute( "name", "equip" );
+                GenerateEquips();
+            }
         },
         {
             name: "relic",
             content: "遗物",
-            onclick: OnClickItems
+            onhide: function () {
+                root.setAttribute( "name", "" );
+                RemoveCards();
+            },
+            onclick: function () {
+                root.setAttribute( "name", "relic" );
+                GenerateRelics();
+            }
         },
         {
             name: "consume",
             content: "消耗品",
-            onclick: OnClickItems
+            onhide: function () {
+                root.setAttribute( "name", "" );
+                RemoveCards();
+            },
+            onclick: function () {
+                root.setAttribute( "name", "consume" );
+                GenerateConsumes();
+            }
         },
         {
             name: "",
             content: "药水",
-            onclick: OnClickItems
+            onhide: function () {
+                root.setAttribute( "name", "" );
+                RemoveCards();
+            },
+            onclick: function () {
+                root.setAttribute( "name", "potion" );
+                GeneratePotions();
+            }
         },
         {
             name: "",
             content: "卷轴",
-            onclick: OnClickItems
+            onhide: function () {
+                root.setAttribute( "name", "" );
+                RemoveCards();
+            },
+            onclick: function () {
+                root.setAttribute( "name", "scroll" );
+                GenerateScrolls();
+            }
         },
         {
             name: "active",
             content: "主动道具",
-            onclick: OnClickItems
+            onhide: function () {
+                root.setAttribute( "name", "" );
+                RemoveCards();
+            },
+            onclick: function () {
+                root.setAttribute( "name", "active" );
+                GenerateActives();
+            }
         }
     ]
 }, {
@@ -248,7 +289,9 @@ function OnClickSkill( info, e ) {
     GenerateWhoseCards( info.name );
 }
 
-function OnClickItems() {}
+function OnClickItems( info, e ) {
+
+}
 
 function OnClickConstrction() {}
 
