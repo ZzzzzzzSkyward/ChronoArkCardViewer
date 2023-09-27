@@ -24,6 +24,7 @@ function CreatePotion( definition ) {
         class: "card-title potion",
         innerHTML: definition.Name
     }, {}, card_content );
+    AddCardDisplayer( card, potiondef, relic_comment );
     return {
         card,
         image
@@ -38,21 +39,10 @@ function GeneratePotions( def ) {
             card,
             image
         } = CreatePotion( def[ i ] );
-        let onmousedown = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            handleMouseDown( e );
-        }
-        let onmousemove = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            mousemove( e );
-        }
         zzz.incidence.bind( card, "mouseenter", function ( e ) {
             card.mouseover = true;
             card.transformZ = 10;
             UpdateTransform( card );
-            DisplayCard( card.getAttribute( "name" ), potiondef, relic_comment );
         } );
         zzz.incidence.bind( card, "mouseleave", function ( e ) {
             card.mouseover = false;

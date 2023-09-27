@@ -259,11 +259,14 @@ let pivot = [ {
     onhide: function () {},
     onclick: function () {},
 }, {
-    disabled: true,
-    name: "建筑",
-    content: "建筑",
-    onhide: function () {},
-    onclick: function () {},
+    name: "问答",
+    content: "问答",
+    onhide: function () {
+        RemoveQA();
+    },
+    onclick: function () {
+        InitQA();
+    },
 }, {
     name: "音乐",
     content: "音乐",

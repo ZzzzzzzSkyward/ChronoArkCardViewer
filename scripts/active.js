@@ -24,6 +24,7 @@ function CreateActive( definition ) {
         class: "card-title active",
         innerHTML: definition.Name
     }, {}, card_content );
+    AddCardDisplayer( card, activedef, relic_comment );
     return {
         card,
         image
@@ -38,21 +39,10 @@ function GenerateActives( def ) {
             card,
             image
         } = CreateActive( def[ i ] );
-        let onmousedown = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            handleMouseDown( e );
-        }
-        let onmousemove = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            mousemove( e );
-        }
         zzz.incidence.bind( card, "mouseenter", function ( e ) {
             card.mouseover = true;
             card.transformZ = 10;
             UpdateTransform( card );
-            DisplayCard( card.getAttribute( "name" ), activedef, relic_comment );
         } );
         zzz.incidence.bind( card, "mouseleave", function ( e ) {
             card.mouseover = false;

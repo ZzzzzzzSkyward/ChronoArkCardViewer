@@ -24,6 +24,7 @@ function CreateConsume( definition ) {
         class: "card-title consume",
         innerHTML: definition.Name
     }, {}, card_content );
+    AddCardDisplayer( card, consumedef, relic_comment );
     return {
         card,
         image
@@ -52,7 +53,6 @@ function GenerateConsumes( def ) {
             card.mouseover = true;
             card.transformZ = 10;
             UpdateTransform( card );
-            DisplayCard( card.getAttribute( "name" ), consumedef, relic_comment );
         } );
         zzz.incidence.bind( card, "mouseleave", function ( e ) {
             card.mouseover = false;

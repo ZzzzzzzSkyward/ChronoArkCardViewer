@@ -22,6 +22,7 @@ function CreateRelic( definition ) {
         class: "card-title relic",
         innerHTML: definition.Name
     }, {}, card_content );
+    AddCardDisplayer( card, relicdef, relic_comment );
     return {
         card,
         image
@@ -36,21 +37,10 @@ function GenerateRelics( def ) {
             card,
             image
         } = CreateRelic( def[ i ] );
-        let onmousedown = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            handleMouseDown( e );
-        }
-        let onmousemove = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            mousemove( e );
-        }
         zzz.incidence.bind( card, "mouseenter", function ( e ) {
             card.mouseover = true;
             card.transformZ = 10;
             UpdateTransform( card );
-            DisplayCard( card.getAttribute( "name" ), relicdef, relic_comment );
         } );
         zzz.incidence.bind( card, "mouseleave", function ( e ) {
             card.mouseover = false;

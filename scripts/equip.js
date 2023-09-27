@@ -42,6 +42,7 @@ function CreateEquip( definition ) {
         innerHTML: definition.Name,
         name: definition.Itemclass
     }, {}, card_content );
+    AddCardDisplayer( card, equipdef, relic_comment );
     return {
         card,
         image
@@ -57,21 +58,10 @@ function GenerateEquips( def ) {
             card,
             image
         } = CreateEquip( sorted[ i ] );
-        let onmousedown = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            handleMouseDown( e );
-        }
-        let onmousemove = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            mousemove( e );
-        }
         zzz.incidence.bind( card, "mouseenter", function ( e ) {
             card.mouseover = true;
             card.transformZ = 10;
             UpdateTransform( card );
-            DisplayCard( card.getAttribute( "name" ), equipdef, relic_comment );
         } );
         zzz.incidence.bind( card, "mouseleave", function ( e ) {
             card.mouseover = false;

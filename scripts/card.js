@@ -1,11 +1,3 @@
-let ctn = zzz.get.id( "container" );
-let root = zzz.create( "div", {
-    id: "cardroot"
-}, {}, ctn );
-let info = zzz.create( "div", {
-    id: "cardinfo",
-}, {}, document.body );
-let name, attr, key, desc, comment;
 let UserMapping = {
     "LucyDraw": "Lucy",
     "LucyDraw3": "Lucy",
@@ -34,11 +26,14 @@ function GetUrl( definition ) {
     return "images/cards/" + user.toLowerCase() + "/" + image
 }
 
-function CreateCard( definition ) {
+function CreateCard( definition, tag ) {
     let card = zzz.create( "div", {
         class: "card trans",
         name: definition.KeyID,
     }, {}, root );
+    if ( tag ) {
+        card.classList.add( tag );
+    }
     let card_content = zzz.create( "div", {
         class: "card-content trans"
     }, {}, card );
@@ -66,6 +61,7 @@ function CreateCard( definition ) {
     let bg = zzz.create( "div", {
         class: "card-fee-background"
     }, {}, fee );
+    AddCardDisplayer( card, carddef, card_comment );
     return {
         card,
         image
@@ -168,6 +164,24 @@ function GenerateWhoseCards( name ) {
     GenerateCards( filtered );
 }
 
+function AddCardDisplayer( card, def, comment ) {
+    card.def = def;
+    card.comment = comment;
+    zzz.incidence.bind( card, "mouseenter", function ( e ) {
+        if ( !selected_card )
+            DisplayCard( card );
+    } );
+    zzz.incidence.bind( card, "click", function ( e ) {
+        if ( selected_card === card ) {
+            selected_card = null;
+            DisplayCard();
+        } else {
+            selected_card = card;
+            DisplayCard( card );
+        }
+    } );
+}
+
 function GenerateCards( def ) {
     RemoveAllChildren( root );
     def = def || carddef;
@@ -193,7 +207,6 @@ function GenerateCards( def ) {
             UpdateTransform( card );
             zzz.incidence.bind( card, "mousemove", onmousemove );
             zzz.incidence.bind( card, 'mousedown', onmousedown );
-            DisplayCard( card.getAttribute( "name" ) );
         } );
         zzz.incidence.bind( card, "mouseleave", function ( e ) {
             card.mouseover = false;
@@ -231,7 +244,7 @@ function GenerateCards( def ) {
                 card.start[ 0 ] = 0;
                 UpdateTransform( card );
             }
-        } )
+        } );
     }
 }
 
@@ -253,109 +266,23 @@ function CreateInfo() {
     }, {}, info );
 }
 
-function DisplayCard( thename, def, cmt ) {
-    def = def || carddef;
-    let info = def[ thename ];
+function DisplayCard( card ) {
+    if ( !card ) {
+        name.innerHTML = "";
+        key.innerHTML = "";
+        attr.innerHTML = "";
+        desc.innerHTML = "";
+        comment.innerHTML = "";
+        return;
+    }
+    let thename = card.getAttribute( "name" );
+    def = card.def;
+    cmt = card.comment;
+    let info = thename && def[ thename ];
     if ( !info ) return;
     name.innerHTML = info.Name;
     key.innerHTML = info.KeyID;
     attr.innerHTML = GetAttribute( info );
     desc.innerHTML = GetDescription( info );
-    comment.innerHTML = GetComment( info, cmt || card_comment );
-}
-
-function GetComment( info, cmt ) {
-    let comment = cmt[ info.KeyID ];
-    if ( comment ) return ( comment[ '评价等级' ] || "" ) + "<br/>" + comment[ '评价' ];
-    return "";
-}
-
-function GetDescription( info ) {
-    let desc = info.Description || "";
-    desc = desc
-        .replace( /\(&[a-z]+\)/g, "" )
-        .replace( /&[a-z]/g, "??" )
-        .replace( /[\r\n]+/g, "<br/>" );
-
-    //convert <color={color}>...</color> to <style> tag
-    let colors = desc.match( /<color=[a-zA-Z#0-9]+>(.*?)<\/color>/g );
-    if ( colors ) {
-        colors.forEach( color => {
-            let colorValue = color.match( /color=([a-zA-Z#0-9]+)/ )[ 1 ];
-            desc = desc.replace( color, `<span style="color: ${colorValue}">${color.match(/>(.*?)<\/color>/)[1]}</span>` );
-        } );
-    }
-    //todo convert <sprite=...> to <img> tag
-    let sprites = desc.match( /<sprite=[a-zA-Z#0-9]+>/g );
-    if ( sprites ) {
-        sprites.forEach( sprite => {
-            let which = sprite.match( /<sprite=([a-zA-Z#0-9]+)>/ )[ 1 ];
-            desc = desc.replace( sprite, `<span>[符号${which}]</span>` )
-        } )
-    }
-    return desc;
-}
-
-function GetAttribute( info ) {
-    let turns = info.AutoDelete || 0;
-    let basic = info.Basic || false;
-    let fatal = info.Fatal || false;
-    let fee = info.UseAp;
-    let desc = "";
-    let target = info.Target;
-    switch ( target ) {
-        case 'enemy':
-            target = "<span name='enemy'>对敌</span>";
-            break;
-        case 'ally':
-            target = "<span name='ally'>对友</span>";
-            break;
-        case 'deathally':
-            target = "<span name='deathally'>对不能战斗者</span>";
-            break;
-        default:
-            target = `<span name='${target}'></span>`;
-    }
-    let cls = info.Itemclass;
-    switch ( cls ) {
-        case 'Legendary':
-            cls = "<span name='Legendary'>传说</span>";
-            break;
-        case 'Unique':
-            cls = "<span name='Unique'>英雄</span>";
-            break;
-        case 'Rare':
-            cls = "<span name='Rare'>稀有</span>";
-            break;
-        case 'UnCommon':
-            cls = "<span name='UnCommon'>特殊</span>";
-            break;
-        case 'Common':
-            cls = "<span name='Common'>普通</span>";
-            break;
-        default:
-            cls = `<span name='${cls}'></span>`;
-    }
-    if ( turns > 0 ) {
-        desc = desc + "<br/>" + `<span class="card-turns">${turns}回合后弃牌</span>`;
-    }
-    if ( basic ) {
-        desc = desc + "<br/>" + `<span class="card-basic">基本</span>`;
-    }
-    if ( fatal ) {
-        desc = desc + "<br/>" + `<span class="card-fatal">致命</span>`;
-    }
-    if ( typeof ( fee ) == "number" && fee >= 0 ) {
-        desc = desc + "<br/>" + `<span class="card-cost">费用${fee}</span>`;
-    }
-    if ( target ) {
-        desc = desc + "<br/>" + target;
-    }
-    if ( cls ) {
-        desc = desc + "<br/>" + cls;
-    }
-    if ( desc.search( "<br" ) === 0 ) {
-        desc = desc.substring( 5 )
-    }
-    return desc;
+    comment.innerHTML = GetComment( info, cmt );
 }

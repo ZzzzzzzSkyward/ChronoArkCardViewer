@@ -1119,12 +1119,12 @@ window.equipdef = {
     "TimeMoneyPrice": 0,
     "image": "Prism stick"
   },
-  "PyonHammer ": {
+  "PyonHammer": {
     "Description": "对嘲讽目标造成的伤害增加40%。",
     "EquipSkill": [],
     "Equip_Script": "PyonHammer",
     "Itemclass": "Legendary",
-    "KeyID": "PyonHammer ",
+    "KeyID": "PyonHammer",
     "Lock": true,
     "Name": "砰~☆充气锤",
     "NoDrop": 0,

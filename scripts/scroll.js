@@ -26,6 +26,7 @@ function CreateScroll( definition ) {
         class: "card-title scroll",
         innerHTML: definition.Name
     }, {}, card_content );
+    AddCardDisplayer( card, scrolldef, relic_comment );
     return {
         card,
         image
@@ -40,21 +41,10 @@ function GenerateScrolls( def ) {
             card,
             image
         } = CreateScroll( def[ i ] );
-        let onmousedown = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            handleMouseDown( e );
-        }
-        let onmousemove = function ( e ) {
-            e = zzz.incidence.interpret( e );
-            e.target = card;
-            mousemove( e );
-        }
         zzz.incidence.bind( card, "mouseenter", function ( e ) {
             card.mouseover = true;
             card.transformZ = 10;
             UpdateTransform( card );
-            DisplayCard( card.getAttribute( "name" ), scrolldef, relic_comment );
         } );
         zzz.incidence.bind( card, "mouseleave", function ( e ) {
             card.mouseover = false;
