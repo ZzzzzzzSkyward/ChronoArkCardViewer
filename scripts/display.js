@@ -1,5 +1,3 @@
-
-
 function GetComment( info, cmt ) {
     let comment = cmt[ info.KeyID ];
     if ( comment ) comment = ( comment[ '评价等级' ] || "" ) + "<br/>" + ( comment[ '评价' ] || "" );
@@ -72,6 +70,7 @@ let suffix_stat = {
     "PlusCriHeal": "%",
     "RES_CC": "%",
     "cri": "%",
+    "def": "%",
     "HIT_CC": "%",
     "RES_DOT": "%",
     "HIT_DEBUFF": "%",
@@ -137,6 +136,8 @@ function GetAttribute( info ) {
     let countdown = info.Counting || 0;
     let ignore = info.IgnoreTaunt || false;
     let stat = GetStat( info.Equip_Script || info.passive_script );
+    let disposable = info.Disposable;
+    let instant = info.NotCount;
     switch ( target ) {
         case 'Misc':
             target = null;
@@ -195,6 +196,12 @@ function GetAttribute( info ) {
             break;
         default:
             cls = `<span name='${cls}'></span>`;
+    }
+    if ( disposable ) {
+        desc = desc + `<span class="card-disposable">一次性</span>`;
+    }
+    if ( instant ) {
+        desc = desc + `<span class="card-instant">迅速</span>`;
     }
     if ( ignore ) {
         desc = desc + `<span class="card-ignore">无视嘲讽</span>`;

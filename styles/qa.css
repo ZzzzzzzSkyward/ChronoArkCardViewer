@@ -42,14 +42,6 @@
     background-color: #ffffffaa;
 }
 
-.qa-a:hover {
-    background-color: #ffffff73;
-}
-
-.qa-a:active {
-    background-color: #ffffffaa;
-}
-
 .qa-a {
     display: block;
     position: relative;

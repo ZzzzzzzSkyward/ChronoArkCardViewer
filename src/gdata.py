@@ -38,8 +38,10 @@ full_path = 'activedef.json'
 full_path = 'potiondef.json'
 # 装备
 full_path = 'equipdef.json'
-merged_path = "scripts/carddef_merge.js"
-merge_path = "scripts/carddef.js"
+#merge
+full_path=r"D:\Steam\steamapps\workshop\content\1188930\2980869866\gdata\Replace\translation.json"
+merged_path = "../scripts/carddef_merge_fixedtranslation.js"
+merge_path = "../scripts/carddef_merge.js"
 
 
 def require():
@@ -199,6 +201,30 @@ def merge(target, source):
         else:
             merge_inner(target[k], source[k])
 
+def merge_from_translation(source=merge_path,translation=full_path):
+    s=file.readstr(source)
+    if source.endswith("js"):
+        s=s[s.find("{"):]
+        try:
+            s=json.load(s)
+        except:
+            s=eval(s)
+    else:
+        s=json.loads(s)
+    t=file.readstr(translation)
+    t=json.loads(t)
+    for i in t:
+        if i not in s:
+            continue
+        for j in t[i]:
+            if j not in s[i]:
+                continue
+            if t[i][j]!=s[i][j]:
+                print(f"{i}[{j}]=\n{s[i][j]}\ntranslation=\n{t[i][j]}")
+                s[i][j]=t[i][j]
+    cards_string=code.prettyjson(s)
+    cards_string = "window.carddef=" + cards_string
+    file.write(merged_path,cards_string)
 
 def merge_into():
     merge_string = file.readstr(merge_path)
@@ -211,7 +237,7 @@ def merge_into():
     merge(cards, source_data)
     cards_string = code.prettyjson(cards)
     cards_string = "window.carddef=" + cards_string
-    file.write("scripts/carddef_merge.js", cards_string)
+    file.write(merged_path, cards_string)
 
 
 def clean_merged():
@@ -227,7 +253,8 @@ def clean_merged():
 
 
 if __name__ == '__main__':
-    # merge_into()
+    #merge_into()
     # clean_merged()
-    main()
+    #main()
+    merge_from_translation()
     pass

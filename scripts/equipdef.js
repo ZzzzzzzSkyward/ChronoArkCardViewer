@@ -238,6 +238,7 @@ window.equipdef = {
     "image": "CamouflageCloak"
   },
   "Candlestick": {
+    "Name":"?",
     "Description": "대상에게 디버프를 1중첩을 부여할 때 마다, 33% 확률로 중첩수를 1 더 부여합니다.",
     "EquipSkill": [],
     "Equip_Script": "Candlestick",

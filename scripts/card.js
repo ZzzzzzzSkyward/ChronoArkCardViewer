@@ -280,7 +280,7 @@ function DisplayCard( card ) {
     cmt = card.comment;
     let info = thename && def[ thename ];
     if ( !info ) return;
-    name.innerHTML = info.Name;
+    name.innerHTML = info.Name||thename;
     key.innerHTML = info.KeyID;
     attr.innerHTML = GetAttribute( info );
     desc.innerHTML = GetDescription( info );

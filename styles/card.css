@@ -151,12 +151,12 @@ body,
 }
 
 .card-title[name='Legendary'] {
-    --bcolor: yellow;
+    --bcolor: rgb(255, 215, 9);
     --tcolor: black;
 }
 
 .card-title[name='Unique'] {
-    --bcolor: red;
+    --bcolor: rgb(238, 54, 203);
 }
 
 .card-title[name='UnCommon'] {
@@ -447,7 +447,12 @@ body,
 .card-nonbasic{
     background-color: #e7a216b5;
 }
-.card-countdown{
+.card-instant{
+    background-color: #aaa0a0b5;
+}.card-disposable{
+    background-color: #caabc3b5;
+    color:white;
+}.card-countdown{
     background-color: #2a1b33b5;
     color:white;
 }
