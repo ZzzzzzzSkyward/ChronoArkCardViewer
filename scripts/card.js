@@ -10,6 +10,7 @@ let UserAlias = {
 };
 
 function GetUrl( definition ) {
+    if(!definition) return "(nodef)";
     let user = definition.User || "";
     user = UserMapping[ user ] || user;
     user = user.toLowerCase();

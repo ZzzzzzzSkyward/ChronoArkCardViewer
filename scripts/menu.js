@@ -276,6 +276,15 @@ let pivot = [ {
     onhide: function () {
         HidePlayer();
     }
+}, {
+    name: "组合",
+    content: "组合",
+    onclick: function () {
+        CreateCombos(document.body);
+    },
+    onhide: function () {
+
+    }
 } ];
 let lastscreen = null;
 

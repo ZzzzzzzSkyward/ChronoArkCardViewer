@@ -28,7 +28,7 @@ function GetDescription( info ) {
     if ( sprites ) {
         sprites.forEach( sprite => {
             let which = sprite.match( /<sprite=([a-zA-Z#0-9]+)>/ )[ 1 ];
-            desc = desc.replace( sprite, `<span>[符号${which}]</span>` )
+            desc = desc.replace( sprite, `<img src="images/buff/${which}.webp"/>` )
         } )
     }
     return desc;

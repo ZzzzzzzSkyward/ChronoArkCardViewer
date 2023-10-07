@@ -23,7 +23,8 @@ let scripts = [ "logo", "audio",
     "menu",
     "mouse",
     "musicplayer",
-    "qa"
+    "qa",
+    "combo"
 ];
 let ctn = zzz.get.id( "container" );
 let root = zzz.create( "div", {

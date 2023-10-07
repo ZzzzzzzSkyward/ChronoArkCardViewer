@@ -57,11 +57,12 @@ def require():
 
 require()
 
-
+prefixes=["Skill","Item_Equip","Item_Consume","Item_Active"]
 def get_trans(data, key, item, value=None):
-    K = f"Skill/{key}_{item.capitalize()}"
-    if K in data:
-        return data[K][Chinese]
+    for i in prefixes:
+        K = f"{i}/{key}_{item.capitalize()}"
+        if K in data:
+            return data[K][Chinese]
     for k in data:
         d = data[k]
         if d[Korean] == value:

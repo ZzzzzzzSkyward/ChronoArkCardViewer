@@ -813,7 +813,7 @@ window.equipdef = {
     "image": "IronShield"
   },
   "KaleidoScopeNecklace": {
-    "Description": "이 장비 아이템은 착용자에 따라 능력치가 결정됩니다.\r\n<color=#1681F3FF>남성 : 크리티컬 확률 8% 증가, 회피율 6% 감소\r\n여성 : 회피율 12% 증가, 크리티컬 확률 4% 감소\r\n공격 역할군 : 크리티컬 확률 11% 증가\r\n방어 역할군 : 최대 체력 6, 받는 치유량 15% 증가.\r\n치유 역할군 : 치유력 2 증가. 모든 디버프 성공률 10% 증가</color>",
+    "Description": "该道具的能力值取决于穿戴的角色。\n<color=#1681F3FF>男性：暴击率增加8%，闪避率减少6%\n女性：闪避率增加12%，暴击率减少4%\n攻击型角色：暴击率增加11%\n防御型角色：最大体力值增加6点，所受治疗量增加15%\n治疗型角色：治疗力增加2点，所有减益成功率增加10%</color>",
     "EquipSkill": [],
     "Equip_Script": "KaleidoScopeNecklace",
     "Itemclass": "Rare",
