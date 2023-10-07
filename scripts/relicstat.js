@@ -1,4 +1,4 @@
-window.relicstat={
+window.relic_stat={
   "BlackMoon": {
     "RES_CC": 15.0,
     "RES_DEBUFF": 15.0,
