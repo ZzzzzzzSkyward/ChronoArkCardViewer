@@ -1,6 +1,6 @@
 let menu = zzz.get.id( "menu" );
 let toppane = zzz.get.id( "toppane" );
-let version_info = "v2.0beta 桃梨";
+let version_info = "v2.0beta End Time";
 let version = zzz.create( "div", {
     innerHTML: version_info,
     className: "version-info"

@@ -10,7 +10,7 @@ let UserAlias = {
 };
 
 function GetUrl( definition ) {
-    if(!definition) return "(nodef)";
+    if ( !definition ) return "(nodef)";
     let user = definition.User || "";
     user = UserMapping[ user ] || user;
     user = user.toLowerCase();
@@ -44,7 +44,8 @@ function CreateCard( definition, tag ) {
         loading: "lazy",
         src: GetUrl( definition ),
         draggable: false,
-        alt: ( definition.Name || "" ) + "(" + ( definition.KeyID || "" ) + ")"
+        alt: ( definition.KeyID || "" ) + GetUrl( definition )
+        //alt: ( definition.Name || "" ) + "(" + ( definition.KeyID || "" ) + ")"
     }, {}, card_content );
     let title = zzz.create( "div", {
         class: "card-title",
@@ -281,7 +282,7 @@ function DisplayCard( card ) {
     cmt = card.comment;
     let info = thename && def[ thename ];
     if ( !info ) return;
-    name.innerHTML = info.Name||thename;
+    name.innerHTML = info.Name || thename;
     key.innerHTML = info.KeyID;
     attr.innerHTML = GetAttribute( info );
     desc.innerHTML = GetDescription( info );

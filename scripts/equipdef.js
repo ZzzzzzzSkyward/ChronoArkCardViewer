@@ -112,7 +112,7 @@ window.equipdef = {
     "image": "Equip (76)"
   },
   "BarrierInk": {
-    "Description": "전투 시작시 최대체력의 50% 만큼 고통 피해를 입고, 최대 체력의 2배만큼 보호막을 얻습니다. \n보호막은 이번 전투동안 지속됩니다.\n체력이 0 이하였다면 발동하지 않습니다.",
+    "Description": "战斗开始时，受到最大体力值50%的痛苦伤害，并获得最大体力值2倍的保护罩。\n保护罩持续至本次战斗结束。\n体力值为0点及以下时不触发。",
     "EquipSkill": [],
     "Equip_Script": "BarrierInk",
     "Itemclass": "Legendary",
@@ -182,7 +182,7 @@ window.equipdef = {
     "image": "BlackMoonSword"
   },
   "BlackSpikedArmor": {
-    "Description": "被击中时反射所受伤害的一半。",
+    "Description": "每当受到伤害时，将所受伤害的一半反弹给随机敌人。",
     "EquipSkill": [],
     "Equip_Script": "BlackSpikedArmor",
     "Itemclass": "Legendary",
@@ -210,7 +210,7 @@ window.equipdef = {
     "image": "Blank"
   },
   "BloodyMary": {
-    "Description": "아무 아군이라도 빈사상태가 되면 자신 치유력의 2배 만큼 방벽을 생성합니다.\n이 효과는 전투당 한번 발동합니다.",
+    "Description": "当任意友军处于濒死状态时生成2倍于自身治疗力的防护墙。\n此效果战斗期间仅限触发1次。",
     "EquipSkill": [],
     "Equip_Script": "BloodyMary",
     "Itemclass": "Unique",
@@ -238,19 +238,19 @@ window.equipdef = {
     "image": "CamouflageCloak"
   },
   "Candlestick": {
-    "Name":"?",
-    "Description": "대상에게 디버프를 1중첩을 부여할 때 마다, 33% 확률로 중첩수를 1 더 부여합니다.",
+    "Description": "每当赋予目标1层减益时，33%概率多赋予1层减益。",
     "EquipSkill": [],
     "Equip_Script": "Candlestick",
     "ItemClass": "Legendary",
     "Itemclass": "Legendary",
     "KeyID": "Candlestick",
-    "Lock": 0,
+    "Lock": false,
+    "Name": "黑夜里的蜡烛",
     "NoDrop": 0,
     "Off": 0,
     "SpecialUnlock": 0,
     "TimeMoneyPrice": 0,
-    "image": "Equip (11)"
+    "image": "candle at night"
   },
   "CeremonialGloves": {
     "Description": "",
@@ -279,6 +279,20 @@ window.equipdef = {
     "SpecialUnlock": false,
     "TimeMoneyPrice": 0,
     "image": "CharginTarge"
+  },
+  "ClownSuit": {
+    "Description": "奇数回合防御力增加25%，偶数回合攻击力增加25%。",
+    "EquipSkill": [],
+    "Equip_Script": "ClownSuit",
+    "Itemclass": "Unique",
+    "KeyID": "ClownSuit",
+    "Lock": true,
+    "Name": "小丑礼服",
+    "NoDrop": 0,
+    "Off": 0,
+    "SpecialUnlock": 0,
+    "TimeMoneyPrice": 0,
+    "image": "clown suit"
   },
   "CrescentCape": {
     "Description": "",
@@ -421,7 +435,7 @@ window.equipdef = {
     "image": "Equip (69)"
   },
   "DevilsHorn": {
-    "Description": "착용자가 적에게 디버프를 부여할 때 마다 디버프 1중첩당 3의 고통 피해를 입힙니다.",
+    "Description": "每当装备角色赋予敌人减益时，每层减益造成3点痛苦伤害。",
     "EquipSkill": [],
     "Equip_Script": "DevilsHorn",
     "Itemclass": "Unique",
@@ -449,7 +463,7 @@ window.equipdef = {
     "image": "DochiHat"
   },
   "DolorousStroke": {
-    "Description": "每当装备角色释放固定能力或技能时，增加暴击伤害 25%、暴击概率 10%、受暴击概率 10%。\n <b>暴击命中或受到暴击时</b>叠加层数重置。",
+    "Description": "每当装备角色释放固定能力或技能时，增加暴击伤害 25%、暴击率 10%、受到暴击率 10%。\n <b>暴击命中或受到暴击时</b>叠加层数重置。",
     "EquipSkill": [],
     "Equip_Script": "DolorousStroke",
     "Itemclass": "Legendary",
@@ -561,7 +575,7 @@ window.equipdef = {
     "image": "Equip (5)"
   },
   "ForestSword": {
-    "Description": "在体力值为 0 点以下的状态下受到攻击时，抵挡伤害并使用奥义：草叶斩给所有敌人造成 50 点伤害。\n 使用此效果后，直到在营地内恢复之前都无法再次触发。\n 当前状态：&a",
+    "Description": "在体力值为 0 点及以下的状态下受到攻击时，抵挡伤害并使用奥义：草叶斩给所有敌人造成 50 点伤害。\n 使用此效果后，直到在营地内恢复之前都无法再次触发。\n 当前状态：&a",
     "EquipSkill": [],
     "Equip_Script": "ForestSword",
     "Itemclass": "Unique",
@@ -980,6 +994,20 @@ window.equipdef = {
     "TimeMoneyPrice": 0,
     "image": "MessiahbladesPrototype"
   },
+  "MirrorShield": {
+    "Description": "当敌人出现时，改变敌人的嘲讽状态。",
+    "EquipSkill": [],
+    "Equip_Script": "MirrorShield",
+    "Itemclass": "Legendary",
+    "KeyID": "MirrorShield",
+    "Lock": true,
+    "Name": "镜子盾牌",
+    "NoDrop": 0,
+    "Off": 0,
+    "SpecialUnlock": 0,
+    "TimeMoneyPrice": 0,
+    "image": "Mirror shield"
+  },
   "Morph": {
     "Description": "战斗开始时，随机展示3个传说装备道具，并在本次战斗期间获得该装备道具的效果。",
     "EquipSkill": [],
@@ -1183,7 +1211,7 @@ window.equipdef = {
     "Itemclass": "Legendary",
     "KeyID": "Replica",
     "Lock": true,
-    "Name": "复制人",
+    "Name": "克隆人",
     "NoDrop": 0,
     "Off": 0,
     "SpecialUnlock": true,
@@ -1513,7 +1541,7 @@ window.equipdef = {
     "image": "Equip (18)"
   },
   "Stellarhand": {
-    "Description": "使用 1 费以上技能造成伤害时，给目标施加命中率 -5%，暴击率 -5%(<sprite=0>90%)的减益。\n 成功率根据装备角色的弱化减益成功率增加。",
+    "Description": "使用 1 点及以上费用的技能造成伤害时，给目标施加命中率 -5%，暴击率 -5%(<sprite=0>90%)的减益。\n 成功率根据装备角色的弱化减益成功率增加。",
     "EquipSkill": [],
     "Equip_Script": "StellarHand",
     "Itemclass": "Unique",
@@ -1735,6 +1763,34 @@ window.equipdef = {
     "SpecialUnlock": false,
     "TimeMoneyPrice": 0,
     "image": "Equip (27)"
+  },
+  "Tiara": {
+    "Description": "治疗目标时，额外治疗量+4",
+    "EquipSkill": [],
+    "Equip_Script": "Tiara",
+    "Itemclass": "Unique",
+    "KeyID": "Tiara",
+    "Lock": 0,
+    "Name": "自然之冠",
+    "NoDrop": 0,
+    "Off": 0,
+    "SpecialUnlock": 0,
+    "TimeMoneyPrice": 0,
+    "image": "Tiara"
+  },
+  "TurquoiseHand": {
+    "Description": "第1回合及第2回合开始时将随机一个调查员的技能拿到手中，该技能费用减少2点，附带一次性。",
+    "EquipSkill": [],
+    "Equip_Script": "TurquoiseHand",
+    "Itemclass": "Unique",
+    "KeyID": "TurquoiseHand",
+    "Lock": true,
+    "Name": "绿松石手把件",
+    "NoDrop": 0,
+    "Off": 0,
+    "SpecialUnlock": 0,
+    "TimeMoneyPrice": 0,
+    "image": "Turquoise Hand"
   },
   "Vadzerald": {
     "Description": "回合结束时，装备角色手中的一个技能费用增加 1 点。",

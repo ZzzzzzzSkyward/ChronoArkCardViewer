@@ -18,30 +18,56 @@ For example, Skill/S_LBossFirst_LucySwordremove_Name,Text,,환영검 부수기,D
 Only Chinese is needed here.
 The Key starts with Skill/, and then is succeeded by the card_id.
 '''
-bom = '\ufeff'
-Key, Type, Desc, Korean, English, Japanese, Chinese, ChineseTW = f'{bom}Key', 'Type', 'Desc', 'Korean', 'English', 'Japanese', 'Chinese', 'Chinese-TW [zh-tw]'
+Key, Type, Desc, Korean, English, Japanese, Chinese, ChineseTW = f'Key', 'Type', 'Desc', 'Korean', 'English', 'Japanese', 'Chinese', 'Chinese-TW [zh-tw]'
 translation_path = 'LangDataDB.csv'
 '''
 The stored full source data
 '''
 # 技能
-full_path = 'carddef.json'
-# 遗物
-full_path = 'relicdef.json'
-# 消耗品
-full_path = 'consumedef.json'
-# 卷轴
-full_path = 'scrolldef.json'
-# 主动
-full_path = 'activedef.json'
-# 药水
-full_path = 'potiondef.json'
-# 装备
-full_path = 'equipdef.json'
-#merge
-full_path=r"D:\Steam\steamapps\workshop\content\1188930\2980869866\gdata\Replace\translation.json"
+datadef = {
+    'card': {
+        'path': 'carddef.json',
+        'fn': lambda info: 'Image_0' in info,
+        'prefix': 'Skill'
+    },
+    'relic': {
+        'path': 'relicdef.json',
+        'fn': lambda info: '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Passive',
+        'prefix': 'Item_Passive'
+    },
+    'consume': {
+        'path': 'consumedef.json',
+        'fn': lambda info: '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Consume',
+        'prefix': 'Item_Consume'
+    },
+    'scroll': {
+        'path': 'scrolldef.json',
+        'fn': lambda info: '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Scroll',
+        'prefix': ''
+    },
+    'active': {
+        'path': 'activedef.json',
+        'fn': lambda info: '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Active',
+        'prefix': 'Item_Active'
+    },
+    'potion': {
+        'path': 'potiondef.json',
+        'fn': lambda info: '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Potions',
+        'prefix': ''
+    },
+    'equip': {
+        'path': 'equipdef.json',
+        'fn': lambda info: '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Equip',
+        'prefix': 'Item_Equip'
+    },
+}
+# merge
+full_path = r"D:\Steam\steamapps\workshop\content\1188930\2980869866\gdata\Replace\translation.json"
 merged_path = "../scripts/carddef_merge_fixedtranslation.js"
 merge_path = "../scripts/carddef_merge.js"
+
+# target
+json_store_path = "./"
 
 
 def require():
@@ -57,12 +83,11 @@ def require():
 
 require()
 
-prefixes=["Skill","Item_Equip","Item_Consume","Item_Active"]
-def get_trans(data, key, item, value=None):
-    for i in prefixes:
-        K = f"{i}/{key}_{item.capitalize()}"
-        if K in data:
-            return data[K][Chinese]
+
+def get_trans(defi, data, key, item, value=None):
+    K = f"{defi['prefix']+'/' if defi['prefix']!='' else ''}{key}_{item.capitalize()}"
+    if K in data:
+        return data[K][Chinese]
     for k in data:
         d = data[k]
         if d[Korean] == value:
@@ -99,9 +124,9 @@ def complete_cards(d):
             del d[i]
             continue
         info = d[i]
-        if info.get('User') == '':
-            del d[i]
-            continue
+        # if info.get('User') == '':
+        #    del d[i]
+        #    continue
         if 'KeyID' in info:
             info['KeyID'] = info['KeyID'] or i
         else:
@@ -115,7 +140,7 @@ def complete_cards(d):
                 info[k] = None
 
 
-def main():
+def main(defi):
     # load data
     data = json.loads(file.readstr(os.path.join(base_path, gdata_path)))
     # load csv
@@ -126,30 +151,17 @@ def main():
     cards = {}
     for i in data:
         info = data[i]
-        # 技能
-        # if 'Image_0' in info:
-        # 遗物
-        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Passive':
-        # 消耗品
-        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Consume':
-        # 卷轴
-        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Scroll':
-        # 主动
-        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Active':
-        # 药水
-        # if '_gdeSchema' in info and info['_gdeSchema']=='Item_Potions':
-        # 装备
-        if '_gdeSchema' in info and info['_gdeSchema'] == 'Item_Equip':
+        if defi['fn'](info):
             cards[i] = info
     # translate Name and Description
     for i in cards:
         info = cards[i]
         Name = info.get('Name') or info.get('name')
         Description = info['Description']
-        translation_chs = get_trans(t, i, 'Name', Name)
+        translation_chs = get_trans(defi, t, i, 'Name', Name)
         if translation_chs:
             info['Name'] = translation_chs
-        translation_chs = get_trans(t, i, 'Description', Description)
+        translation_chs = get_trans(defi, t, i, 'Description', Description)
         if translation_chs:
             info['Description'] = translation_chs
 
@@ -157,7 +169,7 @@ def main():
     clean_cards(cards)
     complete_cards(cards)
     cards_string = code.prettyjson(cards)
-    file.write(full_path, cards_string)
+    file.write(os.path.join(json_store_path, defi['path']), cards_string)
 
 
 false = False
@@ -189,7 +201,7 @@ def merge_inner(target, source):
                         sv = f'"{sv}"'
                     print(
                         f'{target["KeyID"]}[{k}]=\n{target_v}\nbut source is\n{sv}')
-                    if input("Merge?(input anything)").strip() != "":
+                    if input("Merge?(input anything to skip)").strip() == "":
                         target[k] = source_v
         else:
             target[k] = source[k]
@@ -202,43 +214,125 @@ def merge(target, source):
         else:
             merge_inner(target[k], source[k])
 
-def merge_from_translation(source=merge_path,translation=full_path):
-    s=file.readstr(source)
+
+def merge_from_translation(source=merge_path, translation=full_path):
+    s = file.readstr(source)
     if source.endswith("js"):
-        s=s[s.find("{"):]
+        s = s[s.find("{"):]
         try:
-            s=json.load(s)
-        except:
-            s=eval(s)
+            s = json.load(s)
+        except BaseException:
+            s = eval(s)
     else:
-        s=json.loads(s)
-    t=file.readstr(translation)
-    t=json.loads(t)
+        s = json.loads(s)
+    t = file.readstr(translation)
+    t = json.loads(t)
     for i in t:
         if i not in s:
             continue
         for j in t[i]:
             if j not in s[i]:
                 continue
-            if t[i][j]!=s[i][j]:
+            if t[i][j] != s[i][j]:
                 print(f"{i}[{j}]=\n{s[i][j]}\ntranslation=\n{t[i][j]}")
-                s[i][j]=t[i][j]
-    cards_string=code.prettyjson(s)
-    cards_string = "window.carddef=" + cards_string
-    file.write(merged_path,cards_string)
-
-def merge_into():
-    merge_string = file.readstr(merge_path)
-    source_data = json.loads(file.readstr(full_path))
-    pos = merge_string.find('{')
-    merge_string = merge_string[pos:]
-    cards = eval(merge_string)
-    clean_cards(cards)
-    complete_cards(cards)
-    merge(cards, source_data)
-    cards_string = code.prettyjson(cards)
+                s[i][j] = t[i][j]
+    cards_string = code.prettyjson(s)
     cards_string = "window.carddef=" + cards_string
     file.write(merged_path, cards_string)
+
+
+class MergeFunctions:
+    @staticmethod
+    def CopyKeys(my, other):
+        for i in other:
+            if i not in my:
+                my[i] = other[i]
+
+    @staticmethod
+    def CopyAttributes(my, other):
+        for i in other:
+            if i not in my:
+                my[i] = other[i]
+            else:
+                MergeFunctions.CopyKeys(my[i], other[i])
+
+    @staticmethod
+    def CopyImage(my, other):
+        for i in other:
+            if 'image' not in my[i]:
+                if 'image' in other[i]:
+                    my[i]['image'] = other[i]['image']
+                else:
+                    pass
+            else:
+                if 'image' in other[i] and my[i]['image'] != other[i]['image']:
+                    if input(
+                            f"{i}=[{my[i]['image']}]<-{other[i]['image']}?(input anything to skip)").strip() == '':
+                        my[i]['image'] = other[i]['image']
+                else:
+                    pass
+
+    @staticmethod
+    def CopyUser(my, other):
+        for i in other:
+            if 'User' not in my[i]:
+                if 'User' in other[i]:
+                    my[i]['User'] = other[i]['User']
+                else:
+                    pass
+            else:
+                if 'User' in other[i] and my[i]['User'] != other[i]['User']:
+                    if input(
+                            f"{i}=[{my[i]['User']}]<-{other[i]['User']}?(input anything to skip)").strip() == '':
+                        my[i]['User'] = other[i]['User']
+                else:
+                    pass
+
+    @staticmethod
+    def CopyImageAndUser(my, other):
+        MergeFunctions.CopyKeys(my, other)
+        MergeFunctions.CopyImage(my, other)
+        MergeFunctions.CopyUser(my, other)
+
+    @staticmethod
+    def CleanUrl(my, other=None):
+        for i in my:
+            im = my[i]
+            if 'image' in im:
+                img = im['image']
+                im['image'] = img[img.rfind('/') + 1:]
+
+
+def loadfile(path):
+    if path is None:
+        return None
+    s = file.readstr(path)
+    if path.endswith('json'):
+        return json.loads(s)
+    if path.endswith('js'):
+        pos = s.find('{')
+        s = s[pos:]
+        try:
+            return json.loads(s)
+        except BaseException:
+            pass
+        try:
+            return eval(s)
+        except BaseException:
+            pass
+    return s
+
+
+def MergeWithFunction(fn, base_path, other_path, name):
+    my = loadfile(base_path)
+    other = loadfile(other_path)
+    assert isinstance(my, dict)
+    # clean_cards(my)
+    # complete_cards(my)
+    fn(my, other)
+    my = code.prettyjson(my)
+    my = f"window.{name}=" + my
+    file.write(base_path, my)
 
 
 def clean_merged():
@@ -254,8 +348,25 @@ def clean_merged():
 
 
 if __name__ == '__main__':
-    #merge_into()
+    # merge_into()
     # clean_merged()
-    #main()
-    merge_from_translation()
+    #main(datadef['relic'])
+    # merge_from_translation()
+    MergeWithFunction(
+       MergeFunctions.CopyImageAndUser,
+       'scripts/carddef.js',
+       'scripts/carddef_merge_fixedtranslation.js',
+          'carddef')
+    #MergeWithFunction(
+    #    MergeFunctions.CopyAttributes,
+    #    'scripts/relicdef.js',
+    #    'relicdef.json',
+    #    'relicdef'
+    #)
+    #MergeWithFunction(
+    #    MergeFunctions.CleanUrl,
+    #    'equipdef.json',
+    #    None,
+    #    'equipdef'
+    #)
     pass

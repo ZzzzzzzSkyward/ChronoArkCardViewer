@@ -1,6 +1,7 @@
 let scripts = [ "logo", "audio",
     "backgrounds",
-    "carddef_merge_fixedtranslation",
+    //"carddef_merge_fixedtranslation",
+    "carddef",
     "consumedef",
     "relicdef",
     "scrolldef",

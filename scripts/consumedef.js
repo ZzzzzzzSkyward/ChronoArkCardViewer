@@ -61,17 +61,32 @@ window.consumedef = {
   },
   "EquipPouch": {
     "BattleUse": null,
-    "Description": "使用时可从随机3个传说装备中选择一个获得。",
+    "Description": "使用时可在随机道具中选择一个获得。\n<color=gray>未知数据，无法确认里面有什么。</color>",
     "FieldUse": "EquipPouch",
     "KeyID": "EquipPouch",
     "Lock": 0,
-    "Name": "传说装备袋",
-    "Price": 800,
+    "Name": "虚拟数据",
+    "Price": 1000,
     "Stack": 0,
     "Target": null,
     "active_battle": 0,
     "active_field": true,
-    "image": "ArtifactPouch",
+    "image": "Error",
+    "itemClass": "Legendary"
+  },
+  "FriendShipPouch": {
+    "BattleUse": null,
+    "Description": "使用时可随机获得一个礼物。",
+    "FieldUse": "FriendShipPouch",
+    "KeyID": "FriendShipPouch",
+    "Lock": 0,
+    "Name": "羁绊箱",
+    "Price": 300,
+    "Stack": 0,
+    "Target": null,
+    "active_battle": 0,
+    "active_field": true,
+    "image": "FriendShipBox",
     "itemClass": "Unique"
   },
   "GoldenApple": {
@@ -237,6 +252,21 @@ window.consumedef = {
     "active_battle": 0,
     "active_field": true,
     "image": "item_book_03",
+    "itemClass": "Legendary"
+  },
+  "SkillBookLucy_Rare": {
+    "BattleUse": null,
+    "Description": "可从露西的4个随机稀有技能中选择1个学习。",
+    "FieldUse": "SkillBookLucy_Rare",
+    "KeyID": "SkillBookLucy_Rare",
+    "Lock": 0,
+    "Name": "最后的秘笈",
+    "Price": 1000,
+    "Stack": 0,
+    "Target": null,
+    "active_battle": 0,
+    "active_field": true,
+    "image": "last pay",
     "itemClass": "Legendary"
   },
   "SkillBookSuport": {
