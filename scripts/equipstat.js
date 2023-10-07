@@ -21,6 +21,7 @@ window.equip_stat={
     "reg": 2.0
   },
   "Analyticalscope": {
+    "Damage": 15,
     "hit": 7.0
   },
   "Ankh": {
@@ -70,7 +71,7 @@ window.equip_stat={
     "hit": 3.0
   },
   "BlackSpikedArmor": {
-    "MaxHP": 25,
+    "MaxHP": 40,
     "RES_CC": 20.0,
     "RES_DEBUFF": 20.0,
     "RES_DOT": 20.0
@@ -109,6 +110,11 @@ window.equip_stat={
     "dod": -8.0,
     "hit": 3.0
   },
+  "ClownSuit": {
+    "AggroPer": 25,
+    "Damage": 0,
+    "def": 0.0
+  },
   "CrescentCape": {
     "Damage": 15,
     "Heal": 15,
@@ -124,7 +130,6 @@ window.equip_stat={
     "maxhp": 3,
     "reg": 3.0
   },
-  "CrimsonEquip_0": {},
   "CrossBrooch": {
     "PlusCriDmg": -66.0,
     "RES_DEBUFF": 20.0,
@@ -156,6 +161,10 @@ window.equip_stat={
     "cri": 10.0,
     "hit": 5.0
   },
+  "DemonHunter": {
+    "Damage": 20,
+    "cri": -5.0
+  },
   "DevilsHorn": {
     "HIT_DEBUFF": 20.0,
     "HIT_DOT": 20.0,
@@ -169,10 +178,6 @@ window.equip_stat={
     "MaxHP": 10,
     "atk": 2.0,
     "crihit": -10
-  },
-  "Dooooooom": {
-    "Damage": 20,
-    "cri": -5.0
   },
   "EagleEye": {
     "cri": 2.0,
@@ -190,11 +195,6 @@ window.equip_stat={
   "Featheroflife": {
     "MaxHP": -25,
     "Strength": true
-  },
-  "Finale": {
-    "Damage": 15,
-    "MaxHP": -15,
-    "hit": 2.0
   },
   "FlameDarkSword": {
     "Damage": 18,
@@ -240,7 +240,10 @@ window.equip_stat={
     "DeadImmune": 15
   },
   "GasMask": {
-    "HIT_DOT": 10.0
+    "HIT_DOT": 10.0,
+    "atk": 1.0,
+    "maxhp": 5,
+    "reg": 1.0
   },
   "GhostBadge": {
     "RES_CC": 20.0,
@@ -263,7 +266,7 @@ window.equip_stat={
     "Heal": 15,
     "MaxHP": 15
   },
-  "HandPrintofGrimReaper": {
+  "HandprintofGrimReaper": {
     "PlusCriDmg": 80.0,
     "atk": 1.0,
     "cri": 5.0
@@ -300,13 +303,6 @@ window.equip_stat={
     "HIT_DOT": 20.0,
     "atk": 1.0,
     "hit": 10.0
-  },
-  "Ilya_Sword_Extended": {},
-  "IronFist": {
-    "Damage": 15,
-    "Penetration": 33.0,
-    "def": 3.0,
-    "hit": -6.0
   },
   "IronShield": {
     "cri": -6.0,
@@ -372,9 +368,6 @@ window.equip_stat={
     "HIT_DEBUFF": 25.0,
     "HIT_DOT": 25.0
   },
-  "Luminosity": {
-    "def": 5.0
-  },
   "MagicThread": {
     "Heal": -10
   },
@@ -383,12 +376,16 @@ window.equip_stat={
     "dod": 5.0,
     "hit": 3.0
   },
-  "Morph": {},
+  "MirrorShield": {
+    "Damage": 10,
+    "MaxHP": 20,
+    "RES_CC": 33.0
+  },
   "NecklaceofLife": {
     "MaxHP": 20,
     "hit": 5.0
   },
-  "OldBilbe": {
+  "OldBible": {
     "reg": 2.0
   },
   "OrderofEgis": {
@@ -427,7 +424,6 @@ window.equip_stat={
     "DMGTaken": -20.0,
     "HEALTaken": 25.0
   },
-  "RabbitMask": {},
   "Rapier": {
     "Damage": 10,
     "cri": 5.0,
@@ -440,8 +436,7 @@ window.equip_stat={
     "atk": 2.0,
     "reg": 2.0
   },
-  "Replica": {},
-  "RepotersFootprint": {
+  "ReportersFootprint": {
     "HIT_DEBUFF": 15.0,
     "RES_CC": 25.0,
     "dod": 8.0,
@@ -552,10 +547,7 @@ window.equip_stat={
     "maxhp": 2,
     "reg": 2.0
   },
-  "StarryNight": {
-    "dod": 4.0
-  },
-  "StellarHand": {
+  "Stellarhand": {
     "Damage": 15,
     "HIT_DEBUFF": 20.0,
     "HIT_DOT": -25.0,
@@ -580,7 +572,6 @@ window.equip_stat={
     "RES_DOT": -20.0,
     "dod": -8.0
   },
-  "Sunmoonstarcurse": {},
   "Sunmoonstarcurse_Quest": {
     "DeadImmune": 45,
     "dod": 10.0,
@@ -594,10 +585,6 @@ window.equip_stat={
   },
   "SweetPotato_1": {
     "maxhp": 13
-  },
-  "SwordOfStar": {},
-  "Swordofvalkyrie": {
-    "def": 5.0
   },
   "Taegeukring": {
     "atk": 3.0,
@@ -633,14 +620,18 @@ window.equip_stat={
     "HIT_DOT": 10.0,
     "cri": 6.0
   },
-  "TorchofFuriae": {
-    "Heal": 30,
-    "MaxHP": -25,
-    "cri": 3.0
+  "Tiara": {
+    "RES_CC": 10.0,
+    "RES_DEBUFF": 10.0,
+    "RES_DOT": 10.0,
+    "maxhp": 4
   },
-  "TrickstersTail": {
-    "Heal": 8,
-    "dod": 7.0
+  "TurquoiseHand": {
+    "HEALTaken": 15.0,
+    "HIT_CC": 20.0,
+    "HIT_DEBUFF": 20.0,
+    "HIT_DOT": 20.0,
+    "MaxHP": 15
   },
   "Vadzerald": {
     "Damage": 18,
@@ -661,19 +652,9 @@ window.equip_stat={
     "atk": 2.0,
     "maxhp": 4
   },
-  "WhipofFuriae": {
-    "Damage": 40,
-    "HIT_DOT": 20.0,
-    "MaxHP": -25
-  },
   "WhitePriestCloth": {
     "Damage": 15,
     "dod": 5.0
-  },
-  "WingofFuriae": {
-    "MaxHP": -25,
-    "RES_DEBUFF": 20.0,
-    "dod": 12.0
   },
   "WoodenBat": {
     "Damage": 20,

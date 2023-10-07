@@ -88,9 +88,17 @@ let suffix_stat = {
     "MaxHP": "%",
 };
 
-function GetStat( key ) {
+function GetStat( definition ) {
+    let key = definition.Equip_Script || definition.passive_script;
     let override = stat_override[ key ];
     let info = equip_stat[ key ] || relic_stat[ key ];
+    if ( !override && !info ) {
+        key = definition.KeyID;
+        if ( key ) {
+            override = stat_override[ key ];
+            info = equip_stat[ key ] || relic_stat[ key ];
+        }
+    }
     if ( !info ) {
         return null;
     }
@@ -135,7 +143,7 @@ function GetAttribute( info ) {
     let nonbasic = info.NoBasicSkill;
     let countdown = info.Counting || 0;
     let ignore = info.IgnoreTaunt || false;
-    let stat = GetStat( info.Equip_Script || info.passive_script );
+    let stat = GetStat( info );
     let disposable = info.Disposable;
     let instant = info.NotCount;
     switch ( target ) {

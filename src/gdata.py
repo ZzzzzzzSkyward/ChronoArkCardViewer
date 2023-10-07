@@ -255,6 +255,15 @@ class MergeFunctions:
                 my[i] = other[i]
             else:
                 MergeFunctions.CopyKeys(my[i], other[i])
+    @staticmethod
+    def CopyAttributesWithCompare(my,other):
+        for i in other:
+            if i not in my:
+                my[i] = other[i]
+            elif my[i]!=other[i]:
+                print(f"{i}=\n{my[i]}\nother=\n{other[i]}")
+                my[i] = other[i]
+
 
     @staticmethod
     def CopyImage(my, other):
